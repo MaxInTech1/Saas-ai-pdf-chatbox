@@ -7,6 +7,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Loader2Icon, RotateCw, ZoomInIcon, ZoomOutIcon } from "lucide-react";
+import axios from 'axios';
 
 //We need to configure CORS
 // gsutil cors set cors.json gs://<saas-chat-pdf>.appspot.com
@@ -19,23 +20,24 @@ import { Loader2Icon, RotateCw, ZoomInIcon, ZoomOutIcon } from "lucide-react";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 function PdfView({ url }: { url: string }) {
-const [numPages, setNumPages] = useState<number>();
-const [pageNumber, setPageNumber] = useState<number>(1);
-const [file, setFile] = useState<Blob | null>(null);
-const [rotation, setRotation] = useState<number>(0);
-const [scale, setScale] = useState<number>(1);
+    const [numPages, setNumPages] = useState<number>();
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [file, setFile] = useState<Blob | null>(null);
+    const [rotation, setRotation] = useState<number>(0);
+    const [scale, setScale] = useState<number>(1);
 
-const [isFetch, setFetch] = useState(false);
-useEffect(() => {
-const fetchFile = async () => {
-const response = await fetch(url);
-const file = await response.blob();
-setFile(file);
-};
-if(isFetch){
-fetchFile();
-}
-}, [url, isFetch]);
+    useEffect(() => {
+    const fetchFile = async () => { try {
+    const response = await axios.get(url, 
+    {responseType: 'blob', withCredentials: true,
+    }); 
+    setFile(response.data); 
+    } catch(error) { 
+    console.error('Error downloading file:', error);
+    } 
+}; 
+fetchFile(); 
+}, [url]);
 
 const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages);
