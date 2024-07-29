@@ -9,8 +9,8 @@ import { Button } from "./ui/button";
 import { Loader2Icon, RotateCw, ZoomInIcon, ZoomOutIcon } from "lucide-react";
 import axios from "axios";
 
-//We need to configure CORS
-// gsutil cors set cors.json gs://<saas-chat-pdf>.appspot.com
+// We need to configure CORS
+// gsutil cors set cors.json gs://<app-name>.appspot.com
 // gsutil cors set cors.json gs://saas-chat-pdf.appspot.com
 // go here >>> https://console.cloud.google.com/
 // create new file in editor calls cors.json
@@ -28,6 +28,7 @@ function PdfView({ url }: { url: string }) {
 
   useEffect(() => {
     const fetchFile = async () => {
+
       try {
         const response = await axios.get(url, {
           responseType: "blob",
@@ -107,7 +108,7 @@ function PdfView({ url }: { url: string }) {
       </div>
 
       {!file ? (
-        <Loader2Icon className="animate-spin h-20 w-20 text-purple-900 mt-20" />
+        <Loader2Icon className="animate-spin h-20 w-20 text-indigo-600 mt-20" />
       ) : (
         <Document
           loading={null}
