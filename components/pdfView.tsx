@@ -7,7 +7,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Loader2Icon, RotateCw, ZoomInIcon, ZoomOutIcon } from "lucide-react";
-import axios from 'axios';
+import axios from "axios";
 
 // We need to configure CORS
 // gsutil cors set cors.json gs://<app-name>.appspot.com
@@ -28,18 +28,19 @@ function PdfView({ url }: { url: string }) {
 
   useEffect(() => {
     const fetchFile = async () => {
-    try {
-    const response = await axios.get(url, {
-    responseType: "blob",
-    withCredentials: false
-    });
-    setFile(response.data);
-    } catch (error) {
-    console.error("Error downloading file:", error);
-    }
+
+      try {
+        const response = await axios.get(url, {
+          responseType: "blob",
+          withCredentials: false
+        });
+        setFile(response.data);
+      } catch (error) {
+        console.error("Error downloading file:", error);
+      }
     };
     fetchFile();
-    }, [url]);
+  }, [url]);
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages);
