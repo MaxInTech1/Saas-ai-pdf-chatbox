@@ -27,17 +27,19 @@ function PdfView({ url }: { url: string }) {
     const [scale, setScale] = useState<number>(1);
 
     useEffect(() => {
-    const fetchFile = async () => { try {
-    const response = await axios.get(url, 
-    {responseType: 'blob', withCredentials: true,
-    }); 
-    setFile(response.data); 
-    } catch(error) { 
-    console.error('Error downloading file:', error);
-    } 
-}; 
-fetchFile(); 
-}, [url]);
+        const fetchFile = async () => {
+        try {
+        const response = await axios.get(url, {
+        responseType: "blob",
+        withCredentials: false
+        });
+        setFile(response.data);
+        } catch (error) {
+        console.error("Error downloading file:", error);
+        }
+        };
+        fetchFile();
+        }, [url]);
 
 const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages);
