@@ -25,16 +25,17 @@ const [file, setFile] = useState<Blob | null>(null);
 const [rotation, setRotation] = useState<number>(0);
 const [scale, setScale] = useState<number>(1);
 
+const [isFetch, setFetch] = useState(false);
 useEffect(() => {
-    const fetchFile = async () => {
-    const response = await fetch(url);
-    const File = await response.blob();
-
-    setFile(File);
-    };
-
-    fetchFile();
-}, [url]);
+const fetchFile = async () => {
+const response = await fetch(url);
+const file = await response.blob();
+setFile(file);
+};
+if(isFetch){
+fetchFile();
+}
+}, [url, isFetch]);
 
 const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages);
