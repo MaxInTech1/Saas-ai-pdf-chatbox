@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Loader2Icon, RotateCw, ZoomInIcon, ZoomOutIcon } from "lucide-react";
 
-// We need to configure CORS
-// gsutil cors set cors.json gs://<app-name>.appspot.com
+//We need to configure CORS
+// gsutil cors set cors.json gs://<saas-chat-pdf>.appspot.com
 // gsutil cors set cors.json gs://saas-chat-pdf.appspot.com
 // go here >>> https://console.cloud.google.com/
 // create new file in editor calls cors.json
@@ -28,14 +28,14 @@ const [scale, setScale] = useState<number>(1);
 useEffect(() => {
     const fetchFile = async () => {
     const response = await fetch(url);
-    const file = await response.blob();
+    const File = await response.blob();
 
-    setFile(file);
+    setFile(File);
     };
 
     fetchFile();
 }, [url]);
-
+console.log(url);
 const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages);
 };

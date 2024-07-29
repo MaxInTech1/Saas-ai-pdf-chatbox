@@ -2,6 +2,7 @@ import { getApp, getApps, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyDOZCkV8XcO3DKKHYT_Di7SYtD22GErI78",
     authDomain: "saas-chat-pdf.firebaseapp.com",
