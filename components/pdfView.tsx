@@ -35,7 +35,7 @@ useEffect(() => {
 
     fetchFile();
 }, [url]);
-console.log(url);
+
 const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
     setNumPages(numPages);
 };
